@@ -1,65 +1,96 @@
-<form id="customerForm">
-  <h3>Customer Info</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Intake Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0 16px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #2c7;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Customer Intake Form</h1>
+  <form id="customerForm">
+    <label>Customer Name / Business</label>
+    <input type="text" name="customerName" required>
 
-  <label>Customer Name / Business:</label><br>
-  <input type="text" name="customerName" required><br>
+    <label>Customer Address</label>
+    <input type="text" name="address" required>
 
-  <label>Customer Address:</label><br>
-  <input type="text" name="address" required><br>
+    <label>City</label>
+    <input type="text" name="city" required>
 
-  <label>City:</label><br>
-  <input type="text" name="city" required><br>
+    <label>State</label>
+    <input type="text" name="state" required>
 
-  <label>State:</label><br>
-  <input type="text" name="state" required><br>
+    <label>Zip</label>
+    <input type="text" name="zip" required>
 
-  <label>Zip:</label><br>
-  <input type="text" name="zip" required><br>
+    <label>Email</label>
+    <input type="email" name="email" required>
 
-  <label>Email:</label><br>
-  <input type="email" name="email" required><br>
+    <label>Telephone</label>
+    <input type="tel" name="phone">
 
-  <label>Telephone:</label><br>
-  <input type="tel" name="phone"><br>
+    <h2>Best Contact Person</h2>
 
-  <h3>Best Contact Person</h3>
+    <label>Name</label>
+    <input type="text" name="contactPerson">
 
-  <label>Name:</label><br>
-  <input type="text" name="contactPerson"><br>
+    <label>Phone</label>
+    <input type="tel" name="contactPhone">
 
-  <label>Phone:</label><br>
-  <input type="tel" name="contactPhone"><br>
+    <label>Email</label>
+    <input type="email" name="contactEmail">
 
-  <label>Email:</label><br>
-  <input type="email" name="contactEmail"><br>
+    <button type="submit">Submit</button>
+    <p id="formResponse"></p>
+  </form>
 
-  <br>
-  <button type="submit">Submit</button>
-  <p id="formResponse"></p>
-</form>
+  <script>
+    const form = document.getElementById("customerForm");
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzcIssUfApXffxP7QmEGVwR_kmznko1OYNY_YbA2ntZTjuuARARjqm8JRWuugPVegsb4g/exec"; // Replace with your actual Google Apps Script Web App URL
 
-<script>
-  const form = document.getElementById("customerForm");
-  const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // Replace this with your actual script URL
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(res => {
-        document.getElementById("formResponse").innerText = "Submitted successfully!";
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        document.getElementById("formResponse").textContent = "Submitted successfully!";
         form.reset();
       })
-      .catch(err => {
-        document.getElementById("formResponse").innerText = "Error submitting form.";
-        console.error(err);
+      .catch(error => {
+        document.getElementById("formResponse").textContent = "There was an error submitting the form.";
+        console.error("Error!", error.message);
       });
-  });
-</script>
+    });
+  </script>
+</body>
+</html>
