@@ -1,0 +1,65 @@
+<form id="customerForm">
+  <h3>Customer Info</h3>
+
+  <label>Customer Name / Business:</label><br>
+  <input type="text" name="customerName" required><br>
+
+  <label>Customer Address:</label><br>
+  <input type="text" name="address" required><br>
+
+  <label>City:</label><br>
+  <input type="text" name="city" required><br>
+
+  <label>State:</label><br>
+  <input type="text" name="state" required><br>
+
+  <label>Zip:</label><br>
+  <input type="text" name="zip" required><br>
+
+  <label>Email:</label><br>
+  <input type="email" name="email" required><br>
+
+  <label>Telephone:</label><br>
+  <input type="tel" name="phone"><br>
+
+  <h3>Best Contact Person</h3>
+
+  <label>Name:</label><br>
+  <input type="text" name="contactPerson"><br>
+
+  <label>Phone:</label><br>
+  <input type="tel" name="contactPhone"><br>
+
+  <label>Email:</label><br>
+  <input type="email" name="contactEmail"><br>
+
+  <br>
+  <button type="submit">Submit</button>
+  <p id="formResponse"></p>
+</form>
+
+<script>
+  const form = document.getElementById("customerForm");
+  const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // Replace this with your actual script URL
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById("formResponse").innerText = "Submitted successfully!";
+        form.reset();
+      })
+      .catch(err => {
+        document.getElementById("formResponse").innerText = "Error submitting form.";
+        console.error(err);
+      });
+  });
+</script>
