@@ -33,7 +33,7 @@
   <h1>Customer Intake Form</h1>
 
   <!-- ✅ Replace this URL with YOUR Google Apps Script Web App URL -->
-  <form action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
+  <form action="https://script.google.com/macros/s/AKfycbzcIssUfApXffxP7QmEGVwR_kmznko1OYNY_YbA2ntZTjuuARARjqm8JRWuugPVegsb4g/exec" method="POST">
     <label>Customer Name / Business</label>
     <input type="text" name="customerName" required>
 
@@ -41,5 +41,37 @@
     <input type="text" name="address" required>
 
     <label>City</label>
-    <input t
+    <input type="text" name="city" required>
+
+    <label>State</label>
+    <input type="text" name="state" required>
+
+    <label>Zip</label>
+    <input type="text" name="zip" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Telephone</label>
+    <input type="tel" name="phone">
+
+    <h2>Best Contact Person</h2>
+
+    <label>Name</label>
+    <input type="text" name="contactPerson">
+
+    <label>Phone</label>
+    <input type="tel" name="contactPhone">
+
+    <label>Email</label>
+    <input type="email" name="contactEmail">
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p style="margin-top:20px; font-size: 0.9em;">
+    After submission, you will not get a confirmation message here. Please check your Google Sheet to confirm submission.
+  </p>
+</body>
+</html>
 
